@@ -1,11 +1,18 @@
 import express from 'express';
-const app = express()
+const app = express();
 import config from 'config';
 import connect from '../utils/connect';
+import log from '../utils/logger';
+import routes from './routes';
 
+const scheme = config.get<number>('scheme');
+const host = config.get<number>('host');
 const port = config.get<number>('port');
 
 app.listen(port, async () => {
-    console.log("App is running on port ", port);
-    await connect();
+    log.info(`App is running at ${scheme}://${host}:${port}`);
+    
+    // await connect();
+
+    routes(app);
 })

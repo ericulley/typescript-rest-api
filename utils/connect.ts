@@ -1,13 +1,18 @@
 import mongoose from 'mongoose';
 import config from 'config';
+import log from './logger';
 
 const connection = () => {
+
     const dbURI = config.get<string>('dbURI');
+
+    mongoose.set("strictQuery", false);
+
     return mongoose.connect(dbURI).then(() => {
-        console.log('Connected to DB');
+        log.info('Connected to DB');
     }).catch((err) => {
-        console.error('Could not connect to DB');
-        console.error(err);
+        log.error('Could not connect to DB');
+        log.error(err);
         process.exit(1);
     });
 }
