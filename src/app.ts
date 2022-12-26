@@ -12,7 +12,7 @@ const port = config.get<number>('port');
 app.listen(port, async () => {
     log.info(`App is running at ${scheme}://${host}:${port}`);
     
-    // await connect();
+    await connect();
 
     routes(app);
 })
