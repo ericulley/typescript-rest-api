@@ -1,4 +1,4 @@
-import { DocumentDefinition } from "mongoose";
+import { DocumentDefinition, FilterQuery } from "mongoose";
 import UserModel, { UserDocument } from "../models/user.model";
 import bcrypt from "bcrypt";
 import config from "config";
@@ -13,6 +13,10 @@ export async function createUser(input: DocumentDefinition<Omit<UserDocument, "c
   } catch (err: any) {
     throw new Error(err);
   }
+}
+
+export async function getUser(query: FilterQuery<UserDocument>) {
+  return UserModel.findOne(query).lean();
 }
 
 export async function validatePassword({ email, password }: { email: string; password: string }) {
